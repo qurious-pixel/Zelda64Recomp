@@ -54,6 +54,7 @@ jobs:
           curl -sSfL ${{ secrets.BASEROM }} -o baserom.mm.us.rev1.z64
           md5sum baserom.mm.us.rev1.z64
           python3 -m pip install --no-cache-dir -r requirements.txt
+          sed -i '1115,/insn.isJump/{s/insn.isJump/insn.isJumpWithAddress/}' tools/disasm/disasm.py
           make init
           cp .mm.us.rev1.rom_uncompressed.z64 ..
           cp mm.us.rev1.rom_uncompressed.elf ..
