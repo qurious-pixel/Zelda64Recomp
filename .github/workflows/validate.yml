@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: Zelda64Recomp/Zelda64Recomp
+          ref: appimage
           submodules: recursive
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
