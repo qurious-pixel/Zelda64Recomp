@@ -53,6 +53,7 @@ jobs:
           git checkout 23beee0717364de43ca9a82957cc910cf818de90
           curl -sSfL ${{ secrets.BASEROM }} -o baserom.mm.us.rev1.z64
           md5sum baserom.mm.us.rev1.z64
+          python3 -m pip install --no-cache-dir -r requirements.txt
           make init
           cp .mm.us.rev1.rom_uncompressed.z64 ..
           cp mm.us.rev1.rom_uncompressed.elf ..
