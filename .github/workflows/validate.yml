@@ -55,7 +55,7 @@ jobs:
           md5sum baserom.mm.us.rev1.z64
           python3 -m pip install --no-cache-dir -r requirements.txt
           sed -i '1115,/insn.isJump/{s/insn.isJump/insn.isJumpWithAddress/}' tools/disasm/disasm.py
-          make init
+          CC_CHECK_COMP='ccache gcc' make init
           cp mm.us.rev1.rom_uncompressed.z64 ..
           cp mm.us.rev1.rom_uncompressed.elf ..
           
@@ -98,4 +98,14 @@ jobs:
         with:
           name: Zelda64Recompiled-${{ runner.os }}-${{ matrix.type }}
           path: Zelda64Recompiled-${{ runner.os }}-${{ matrix.type }}.tar.gz
-  
+
+      - name: Build ZeldaRecomp
+        run: |-
+          chmod +x .github/linux/appimage.sh
+          ./.github/linux/appimage.sh
+          
+      - name: Zelda64Recomp AppImage
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zelda64Recompiled-AppImage
+          path: Zelda64Recompiled-x86_64.AppImage
