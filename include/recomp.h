@@ -2,6 +2,7 @@
 #define __RECOMP_H__
 
 #include <stdint.h>
+#include <stdio.h>
 #include <math.h>
 #include <assert.h>
 #include <setjmp.h>
