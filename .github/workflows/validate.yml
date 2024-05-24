@@ -41,5 +41,5 @@ jobs:
           ls -al .
           ls -al /
           ls -al /mm
-          ls -al rom
+          ls -al /home/runner
           echo "done"
