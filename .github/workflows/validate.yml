@@ -21,9 +21,10 @@ jobs:
     container:
       image: alpine:latest
       volumes: 
-      - /workspace:/github/workspace
+      - /workspace:${{github.workspace}}
     steps:
       - name: Setup dependencies
         run: |
           pwd
           ls -al .
+          ls -al /workspace
