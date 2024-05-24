@@ -27,4 +27,4 @@ jobs:
         run: |
           pwd
           ls -al .
-          ls -al /workspace
+          ls -al /
