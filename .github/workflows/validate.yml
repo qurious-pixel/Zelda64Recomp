@@ -42,3 +42,4 @@ jobs:
           ls -al /
           ls -al /mm
           ls -al rom
+          echo "done"
