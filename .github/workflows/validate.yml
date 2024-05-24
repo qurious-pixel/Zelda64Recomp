@@ -21,10 +21,11 @@ jobs:
     container:
       image: alpine:latest
       volumes: 
-      - /workspace:${{github.workspace}}
+      - ${{github.workspace}}:/mm
     steps:
       - name: Setup dependencies
         run: |
           pwd
           ls -al .
-          ls -al /__w/Zelda64Recomp/Zelda64Recomp
+          ls -al /
+          ls -al /mm
