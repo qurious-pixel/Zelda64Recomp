@@ -2,64 +2,28 @@ name: validate
 on:
   push:
     branches:
-      - alpine
+      - test
 
 jobs:
+  build-rom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup dependencies
+        run: |
+          pwd
+          echo "my first file" > file.txt
+          ls -al .
+          cat file.txt
+        
   build-unix:
+    needs: build-rom
     runs-on: ubuntu-latest
     container:
       image: alpine:latest
+      volumes: 
+      - /workspace:/github/workspace
     steps:
       - name: Setup dependencies
-        run: >
-          apk update &&
-          apk add git cmake make fuse3 samurai pkgconf-dev curl bash coreutils file
-          python3-dev py3-pip py3-virtualenv libpng-dev alsa-lib-dev pulseaudio-dev
-          clang17-dev clang17-static llvm17-static llvm17-dev sdl2-dev dbus-dev freetype-dev
-          libxrandr-dev lld-dev gtk+3.0-dev spirv-llvm-translator-dev compiler-rt directfb-static 
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: add safe.directory
-        run: git config --global --add safe.directory '*'
-      
-      - name: Clone MMret
-        run: |-
-          git clone https://github.com/zeldaret/mm.git
-          cd mm
-          git checkout 23beee0717364de43ca9a82957cc910cf818de90
-          curl -sSfL ${{ secrets.BASEROM }} -o baserom.mm.us.rev1.z64
-          md5sum baserom.mm.us.rev1.z64
-            python3 -m venv venv
-            . venv/bin/activate
-            python3 -m pip install --no-cache-dir -r requirements.txt
-            deactivate
-          sed -i '1115,/insn.isJump/{s/insn.isJump/insn.isJumpWithAddress/}' tools/disasm/disasm.py
-          CC_CHECK_COMP='ccache gcc' make init
-          cp mm.us.rev1.rom_uncompressed.z64 ..
-          cp mm.us.rev1.rom_uncompressed.elf ..
-          
-      - name: Build N64Recomp & RSPRecomp
         run: |
-          git clone https://github.com/Mr-Wiseguy/N64Recomp.git --recurse-submodules N64RecompSource
-          cd N64RecompSource
-       
-          # Build N64Recomp & RSPRecomp
-          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER=g++-11 -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S . -B cmake-build
-          cmake --build cmake-build --config Release --target N64Recomp -j 8
-          cmake --build cmake-build --config Release --target RSPRecomp -j 8
-
-          # Copy N64Recomp & RSPRecomp to root directory
-          cp cmake-build/N64Recomp ..
-          cp cmake-build/RSPRecomp ..
-      - name: Run N64Recomp & RSPRecomp
-        run: |
-          ./N64Recomp us.rev1.toml
-          ./RSPRecomp aspMain.us.rev1.toml
-          ./RSPRecomp njpgdspMain.us.rev1.toml
-
-      
- 
+          pwd
+          ls -al .
