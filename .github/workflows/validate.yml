@@ -10,10 +10,6 @@ jobs:
     container:
       image: alpine:latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
       - name: Setup dependencies
         run: >
           apk update &&
@@ -22,6 +18,11 @@ jobs:
           clang17-dev clang17-static llvm17-static llvm17-dev sdl2-dev dbus-dev freetype-dev
           libxrandr-dev lld-dev gtk+3.0-dev \ spirv-llvm-translator-dev compiler-rt directfb-static 
 
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          
       - name: Clone MMret
         run: |-
           git clone https://github.com/zeldaret/mm.git
