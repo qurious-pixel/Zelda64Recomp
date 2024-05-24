@@ -8,8 +8,15 @@ jobs:
   build-rom:
     runs-on: ubuntu-latest
     steps:
+      - name: Create cache for docker image
+        uses: actions/cache@v4
+        with:
+          path: rom
+          key: basefile
       - name: Setup dependencies
         run: |
+          mkdir -p rom
+          cd rom
           pwd
           echo "my first file" > file.txt
           ls -al .
@@ -23,9 +30,15 @@ jobs:
       volumes: 
       - /home/runner/work/Zelda64Recomp/Zelda64Recomp:/mm
     steps:
+      - name: Restore cached docker image
+        uses: actions/cache/restore@v4
+        with:
+          path: rom
+          key: basefile
       - name: Setup dependencies
         run: |
           pwd
           ls -al .
           ls -al /
           ls -al /mm
+          ls -al rom
