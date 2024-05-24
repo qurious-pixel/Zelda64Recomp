@@ -16,7 +16,7 @@ jobs:
           apk add git cmake make fuse3 samurai pkgconf-dev curl bash coreutils file
           python3-dev py3-pip py3-virtualenv libpng-dev alsa-lib-dev pulseaudio-dev
           clang17-dev clang17-static llvm17-static llvm17-dev sdl2-dev dbus-dev freetype-dev
-          libxrandr-dev lld-dev gtk+3.0-dev \ spirv-llvm-translator-dev compiler-rt directfb-static 
+          libxrandr-dev lld-dev gtk+3.0-dev spirv-llvm-translator-dev compiler-rt directfb-static 
 
       - name: Checkout
         uses: actions/checkout@v4
