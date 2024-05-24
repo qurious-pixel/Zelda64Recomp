@@ -27,4 +27,4 @@ jobs:
         run: |
           pwd
           ls -al .
-          ls -al /
+          ls -al /__w/Zelda64Recomp/Zelda64Recomp
